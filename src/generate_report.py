@@ -64,92 +64,163 @@ def generate_html_report():
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Reconciliation Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recon AI — Reconciliation Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {{
-    --bg: #ffffff; --text: #1a1a1a; --card: #f5f5f7; --border: #e0e0e0;
-    --exact: #22c55e; --fuzzy: #f59e0b; --exception: #ef4444; --accent: #6366f1;
+    --bg: #f4f6fb; --surface: #ffffff; --text: #10192e; --muted: #6b7688; --border: #e3e7f0;
+    --navy: #0c1f45; --navy-2: #142c5c; --accent: #3395ff; --accent-soft: #e8f2ff;
+    --exact: #16a34a; --exact-soft: #e7f8ee;
+    --fuzzy: #d97706; --fuzzy-soft: #fef3e2;
+    --exception: #dc2626; --exception-soft: #fdeaea;
+    --shadow: 0 1px 2px rgba(16,25,46,0.04), 0 8px 24px rgba(16,25,46,0.06);
   }}
   @media (prefers-color-scheme: dark) {{
-    :root:not([data-theme="light"]) {{ --bg: #0f0f0f; --text: #e5e5e5; --card: #1a1a1a; --border: #2a2a2a; }}
+    :root:not([data-theme="light"]) {{
+      --bg: #090e1b; --surface: #121a2e; --text: #eaeefb; --muted: #8b96ae; --border: #223054;
+      --navy: #060c1c; --navy-2: #0d1730; --accent: #5dabff; --accent-soft: #132540;
+      --exact-soft: #103322; --fuzzy-soft: #3a2a0d; --exception-soft: #3a1414;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4);
+    }}
   }}
-  :root[data-theme="dark"] {{ --bg: #0f0f0f; --text: #e5e5e5; --card: #1a1a1a; --border: #2a2a2a; }}
+  :root[data-theme="dark"] {{
+    --bg: #090e1b; --surface: #121a2e; --text: #eaeefb; --muted: #8b96ae; --border: #223054;
+    --navy: #060c1c; --navy-2: #0d1730; --accent: #5dabff; --accent-soft: #132540;
+    --exact-soft: #103322; --fuzzy-soft: #3a2a0d; --exception-soft: #3a1414;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.4);
+  }}
   * {{ box-sizing: border-box; }}
   html {{ scroll-behavior: smooth; }}
-  body {{ font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; max-width: 1000px; margin: 0 auto; }}
-  h1 {{ font-size: 22px; margin-bottom: 4px; }}
-  .subtitle {{ color: #888; margin-bottom: 24px; font-size: 14px; }}
-  .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }}
-  .stat-card {{
-    background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
-    text-decoration: none; color: inherit; cursor: pointer; display: block;
-    transition: transform 0.15s, box-shadow 0.15s;
+  body {{
+    font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text);
+    margin: 0; -webkit-font-smoothing: antialiased;
   }}
-  .stat-card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }}
-  .stat-card:active {{ transform: translateY(0); }}
-  .stat-value {{ font-size: 26px; font-weight: 700; }}
-  .stat-label {{ font-size: 12px; color: #888; margin-top: 4px; }}
+  .topbar {{ background: linear-gradient(135deg, var(--navy), var(--navy-2)); padding: 18px 24px; }}
+  .topbar-inner {{ max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }}
+  .brand-mark {{
+    width: 34px; height: 34px; border-radius: 9px; background: var(--accent);
+    color: var(--navy); font-weight: 800; font-size: 16px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+  }}
+  .brand-text {{ line-height: 1.25; }}
+  .brand-title {{ color: #fff; font-weight: 700; font-size: 15px; letter-spacing: 0.2px; }}
+  .brand-sub {{ color: #9db4de; font-size: 11px; font-weight: 500; letter-spacing: 0.3px; text-transform: uppercase; }}
+
+  .container {{ max-width: 1040px; margin: 0 auto; padding: 28px 24px 48px; }}
+  h1 {{ font-size: 21px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.2px; }}
+  .subtitle {{ color: var(--muted); margin-bottom: 22px; font-size: 13.5px; }}
+  .subtitle .sep {{ margin: 0 6px; opacity: 0.5; }}
+
+  .tabs {{ display: flex; gap: 6px; margin-bottom: 26px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 5px; box-shadow: var(--shadow); }}
+  .tab-btn {{
+    flex: 1; background: none; border: none; cursor: pointer; font: inherit;
+    color: var(--muted); padding: 10px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    transition: background 0.15s, color 0.15s;
+  }}
+  .tab-btn:hover {{ color: var(--text); background: var(--accent-soft); }}
+  .tab-btn.active {{ color: #fff; background: var(--accent); }}
+  .tab-panel {{ display: none; }}
+  .tab-panel.active {{ display: block; animation: fadein 0.2s ease; }}
+  @keyframes fadein {{ from {{ opacity: 0; transform: translateY(3px); }} to {{ opacity: 1; transform: translateY(0); }} }}
+
+  .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 18px; }}
+  .stat-card {{
+    background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent);
+    border-radius: 12px; padding: 16px 18px; text-decoration: none; color: inherit; cursor: pointer;
+    display: block; box-shadow: var(--shadow); transition: transform 0.15s, box-shadow 0.15s;
+  }}
+  .stat-card:hover {{ transform: translateY(-3px); box-shadow: 0 4px 8px rgba(16,25,46,0.06), 0 16px 32px rgba(16,25,46,0.1); }}
+  .stat-card:active {{ transform: translateY(-1px); }}
+  .stat-card.exact {{ border-top-color: var(--exact); }}
+  .stat-card.fuzzy {{ border-top-color: var(--fuzzy); }}
+  .stat-card.exception {{ border-top-color: var(--exception); }}
+  .stat-value {{ font-size: 25px; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.5px; }}
+  .stat-label {{ font-size: 11.5px; color: var(--muted); margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }}
+
   .bar-container {{
-    background: var(--card); border-radius: 8px; overflow: hidden; height: 32px;
-    display: flex; margin-bottom: 10px; border: 1px solid var(--border);
+    background: var(--surface); border-radius: 10px; overflow: hidden; height: 34px;
+    display: flex; margin-bottom: 10px; border: 1px solid var(--border); box-shadow: var(--shadow);
   }}
   .bar {{
     height: 100%; display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: white; font-weight: 600;
-    text-decoration: none; cursor: pointer;
+    font-size: 11px; color: white; font-weight: 700; text-decoration: none; cursor: pointer;
   }}
   .bar.exact {{ background: var(--exact); width: {exact_pct}%; }}
   .bar.fuzzy {{ background: var(--fuzzy); width: {fuzzy_pct}%; }}
   .bar.exception {{ background: var(--exception); width: {exception_pct}%; }}
-  .legend {{ display: flex; gap: 16px; margin-bottom: 24px; font-size: 12px; color: #888; }}
-  .dot {{ display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }}
+  .legend {{ display: flex; gap: 18px; margin-bottom: 28px; font-size: 12px; color: var(--muted); font-weight: 500; }}
+  .dot {{ display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }}
   .dot.exact {{ background: var(--exact); }}
   .dot.fuzzy {{ background: var(--fuzzy); }}
   .dot.exception {{ background: var(--exception); }}
-  table {{ width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }}
-  th, td {{ text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }}
-  th {{ color: #888; font-weight: 600; font-size: 12px; text-transform: uppercase; }}
-  .badge {{ padding: 2px 8px; border-radius: 12px; font-size: 11px; color: white; }}
-  .badge.exact {{ background: var(--exact); }}
-  .badge.fuzzy {{ background: var(--fuzzy); }}
-  .table-wrap {{ overflow-x: auto; }}
-  h2 {{ font-size: 16px; margin-top: 32px; scroll-margin-top: 20px; }}
-  .tabs {{ display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }}
-  .tab-btn {{
-    background: none; border: none; cursor: pointer; font: inherit;
-    color: #888; padding: 10px 4px; margin-bottom: -1px;
-    border-bottom: 2px solid transparent; font-size: 13px; font-weight: 600;
+
+  h2 {{ font-size: 14px; font-weight: 700; margin: 32px 0 12px; scroll-margin-top: 20px; display: flex; align-items: center; gap: 8px; }}
+  h2::before {{ content: ""; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; display: inline-block; }}
+  .table-wrap {{ background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); overflow-x: auto; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
+  th, td {{ text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }}
+  td {{ white-space: normal; }}
+  tr:last-child td {{ border-bottom: none; }}
+  tbody tr:hover td {{ background: var(--accent-soft); }}
+  th {{ color: var(--muted); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.4px; background: var(--bg); }}
+  .badge {{ padding: 3px 9px; border-radius: 20px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }}
+  .badge.exact {{ background: var(--exact-soft); color: var(--exact); }}
+  .badge.fuzzy {{ background: var(--fuzzy-soft); color: var(--fuzzy); }}
+
+  .section-head {{ margin-top: 6px; }}
+  .section-head h1 {{ display: flex; align-items: center; gap: 10px; }}
+  .section-icon {{
+    width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); color: var(--accent);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700;
   }}
-  .tab-btn:hover {{ color: var(--text); }}
-  .tab-btn.active {{ color: var(--accent); border-bottom-color: var(--accent); }}
-  .tab-panel {{ display: none; }}
-  .tab-panel.active {{ display: block; }}
+
+  .footer {{ text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); }}
+  .footer a {{ font-size: 12px; color: var(--muted); text-decoration: none; font-weight: 600; }}
+  .footer a:hover {{ color: var(--accent); }}
+  .footer .tag {{ display: block; font-size: 11px; color: var(--muted); opacity: 0.7; margin-top: 6px; }}
+
   @media (max-width: 600px) {{
-    .tabs {{ overflow-x: auto; white-space: nowrap; }}
-    body {{ padding: 12px; }}
+    .container {{ padding: 20px 14px 36px; }}
+    .topbar {{ padding: 14px 16px; }}
+    .tabs {{ flex-wrap: wrap; }}
+    .tab-btn {{ flex: 1 1 30%; }}
     .stats {{ grid-template-columns: repeat(2, 1fr); }}
-    table {{ font-size: 11px; }}
-    th, td {{ padding: 6px; }}
+    table {{ font-size: 11.5px; }}
+    th, td {{ padding: 8px 10px; }}
     .legend {{ flex-wrap: wrap; gap: 10px; }}
   }}
 </style>
 </head>
 <body>
-  <h1 id="top">Multi-Source Settlement Reconciliation Report</h1>
-  <div class="subtitle">Generated {datetime.now().strftime('%d %b %Y, %I:%M %p')} · {total} transactions processed</div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-mark">₹</div>
+      <div class="brand-text">
+        <div class="brand-title">Recon AI — Multi-Loop Finance Controller</div>
+        <div class="brand-sub">Razorpay AI Buildathon 2026 · Track T4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+  <h1 id="top">Reconciliation Dashboard</h1>
+  <div class="subtitle">Generated {datetime.now().strftime('%d %b %Y, %I:%M %p')}<span class="sep">·</span>{total} transactions processed<span class="sep">·</span>3 closed loops</div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="tab-1" onclick="showTab('tab-1', this)">1. Reconciliation</button>
-    <button class="tab-btn" data-tab="tab-2" onclick="showTab('tab-2', this)">2. Fee/GST Audit</button>
-    <button class="tab-btn" data-tab="tab-3" onclick="showTab('tab-3', this)">3. Refund Allocator</button>
+    <button class="tab-btn active" data-tab="tab-1" onclick="showTab('tab-1', this)">1 · Reconciliation</button>
+    <button class="tab-btn" data-tab="tab-2" onclick="showTab('tab-2', this)">2 · Fee/GST Audit</button>
+    <button class="tab-btn" data-tab="tab-3" onclick="showTab('tab-3', this)">3 · Refund Allocator</button>
   </div>
 
   <div class="tab-panel active" id="tab-1">
   <div class="stats">
-    <a href="#matched-table" class="stat-card"><div class="stat-value">{match_pct:.1f}%</div><div class="stat-label">Auto-Matched</div></a>
-    <a href="#matched-table" class="stat-card"><div class="stat-value">{exact_count}</div><div class="stat-label">Exact Matches</div></a>
-    <a href="#matched-table" class="stat-card"><div class="stat-value">{fuzzy_count}</div><div class="stat-label">Fuzzy Matches</div></a>
-    <a href="#exceptions-table" class="stat-card"><div class="stat-value">{exception_count}</div><div class="stat-label">Honest Exceptions</div></a>
+    <a href="#matched-table" class="stat-card exact"><div class="stat-value">{match_pct:.1f}%</div><div class="stat-label">Auto-Matched</div></a>
+    <a href="#matched-table" class="stat-card exact"><div class="stat-value">{exact_count}</div><div class="stat-label">Exact Matches</div></a>
+    <a href="#matched-table" class="stat-card fuzzy"><div class="stat-value">{fuzzy_count}</div><div class="stat-label">Fuzzy Matches</div></a>
+    <a href="#exceptions-table" class="stat-card exception"><div class="stat-value">{exception_count}</div><div class="stat-label">Honest Exceptions</div></a>
     <div class="stat-card"><div class="stat-value">₹{total_amount_matched:,.0f}</div><div class="stat-label">Amount Reconciled</div></div>
   </div>
 
@@ -182,14 +253,16 @@ def generate_html_report():
   </div>
 
   <div class="tab-panel" id="tab-2">
-  <h1 id="fee-audit">Fee / GST Split Audit</h1>
-  <div class="subtitle">Recomputed against 2.5% fee + 18% GST rate card · ₹0.50 tolerance</div>
+  <div class="section-head">
+  <h1><span class="section-icon">%</span>Fee / GST Split Audit</h1>
+  <div class="subtitle">Recomputed against 2.5% fee + 18% GST rate card<span class="sep">·</span>₹0.50 tolerance</div>
+  </div>
 
   <div class="stats">
-    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_clean_count}</div><div class="stat-label">Clean Settlements</div></a>
-    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_flagged_count}</div><div class="stat-label">Flagged Discrepancies</div></a>
-    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_flagged_pct:.1f}%</div><div class="stat-label">Flag Rate</div></a>
-    <div class="stat-card"><div class="stat-value">₹{fee_total_leakage:,.2f}</div><div class="stat-label">Total Leakage Found</div></div>
+    <a href="#fee-audit-table" class="stat-card exact"><div class="stat-value">{fee_clean_count}</div><div class="stat-label">Clean Settlements</div></a>
+    <a href="#fee-audit-table" class="stat-card exception"><div class="stat-value">{fee_flagged_count}</div><div class="stat-label">Flagged Discrepancies</div></a>
+    <a href="#fee-audit-table" class="stat-card exception"><div class="stat-value">{fee_flagged_pct:.1f}%</div><div class="stat-label">Flag Rate</div></a>
+    <div class="stat-card exception"><div class="stat-value">₹{fee_total_leakage:,.2f}</div><div class="stat-label">Total Leakage Found</div></div>
   </div>
 
   <h2 id="fee-audit-table">Flagged Fee/GST Discrepancies</h2>
@@ -202,13 +275,15 @@ def generate_html_report():
   </div>
 
   <div class="tab-panel" id="tab-3">
-  <h1 id="refund-allocator">Partial Refund Allocator</h1>
-  <div class="subtitle">Fee/GST/net split proportionally per refund, tied to original settlement</div>
+  <div class="section-head">
+  <h1><span class="section-icon">↺</span>Partial Refund Allocator</h1>
+  <div class="subtitle">Fee/GST/net split proportionally per refund<span class="sep">·</span>tied to original settlement</div>
+  </div>
 
   <div class="stats">
     <a href="#refund-table" class="stat-card"><div class="stat-value">{refund_total}</div><div class="stat-label">Refund Events</div></a>
-    <a href="#refund-table" class="stat-card"><div class="stat-value">{len(refund_journal)}</div><div class="stat-label">Journal Entries</div></a>
-    <a href="#refund-table" class="stat-card"><div class="stat-value">{len(refund_exceptions)}</div><div class="stat-label">Unresolved</div></a>
+    <a href="#refund-table" class="stat-card exact"><div class="stat-value">{len(refund_journal)}</div><div class="stat-label">Journal Entries</div></a>
+    <a href="#refund-table" class="stat-card exception"><div class="stat-value">{len(refund_exceptions)}</div><div class="stat-label">Unresolved</div></a>
     <div class="stat-card"><div class="stat-value">₹{refund_net_reversed:,.2f}</div><div class="stat-label">Net Amount Reversed</div></div>
   </div>
 
@@ -219,9 +294,11 @@ def generate_html_report():
     {refund_rows_html}
   </table>
   </div>
+  </div>
 
-  <div style="text-align:center; margin-top:32px;">
-    <a href="#top" style="font-size:12px; color:#888; text-decoration:none;">↑ Back to top</a>
+  <div class="footer">
+    <a href="#top">↑ Back to top</a>
+    <span class="tag">Rule-based matching · Full audit trail · Honest exceptions, never cherry-picked</span>
   </div>
   </div>
 
