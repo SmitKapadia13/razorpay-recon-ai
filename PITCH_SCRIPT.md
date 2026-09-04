@@ -80,7 +80,7 @@ python3 src/run_all.py
 
 > A couple of deliberate choices. I used rule-based logic — not an LLM — for all of this, because it's faster, free, fully explainable, and there's nothing "fuzzy" about a rate card or a bank UTR. Every single decision this tool makes comes with a plain-English reason attached — that's the audit trail a compliance team would actually need.
 
-> And I'll be upfront about the limits: this is a controlled synthetic dataset, not live production data — real-world cases like split invoices or multi-currency will need more work. I actually found and fixed a real bug during development where a coincidental match slipped through — it's documented, because I think showing you found and fixed a real mistake is more convincing than claiming a perfect first try.
+> And I'll be upfront about the limits: this is a controlled synthetic dataset, not live production data — real-world cases like split invoices or multi-currency will need more work. I actually found a real bug during development — my matcher accepted a coincidental match with only 23% name similarity, a pure fluke. I added a floor to catch that, documented it in the failure log, and re-verified my accuracy numbers afterward. Showing you a mistake I found and fixed is more convincing than claiming a perfect first try.
 
 [Screen: optional — flash `failure_log.md` for 2 seconds]
 
