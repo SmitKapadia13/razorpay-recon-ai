@@ -1,0 +1,4 @@
+pandas
+rapidfuzz
+openpyxl
+python-dotenv
