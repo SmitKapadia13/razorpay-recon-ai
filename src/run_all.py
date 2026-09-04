@@ -1,14 +1,17 @@
 import subprocess
 import sys
+import time
 
 def run_step(script_name, description):
     print(f"\n{'='*60}")
-    print(f"STEP: {description}")
+    print(f"▶ {description}")
     print('='*60)
+    time.sleep(0.3)  # tiny dramatic pause, feels intentional on camera
     result = subprocess.run([sys.executable, script_name])
     if result.returncode != 0:
-        print(f"FAILED at: {script_name}")
+        print(f"✗ FAILED at: {script_name}")
         sys.exit(1)
+    print(f"✓ Done")
 
 if __name__ == "__main__":
     print("RAZORPAY RECONCILIATION PIPELINE — FULL RUN")
