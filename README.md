@@ -76,7 +76,7 @@ Every row in these three files carries a `reason` string explaining exactly why 
 Research (Prakash et al., 2025) shows small domain-tuned models can outperform general LLMs on narrow matching tasks. We use `rapidfuzz` and deterministic rate-card math (offline, free) for all three loops, reserving LLM calls only for genuinely ambiguous edge cases — cheaper, faster, and more explainable than calling an LLM on every row. Every automated decision — match, fee flag, refund allocation — includes a human-readable `reason` string (audit trail).
 
 ## Honest Limitations
-100% precision/recall on PS1 was achieved on synthetic data intentionally designed with resolvable patterns (amount/date always reliable by construction). This is a controlled demo, not a production accuracy claim — real-world data would include multi-invoice splits and cross-currency cases not simulated here. See `failure_log.md` for documented bugs and fixes during development.
+100% precision/recall on PS1 was achieved on synthetic data intentionally designed with resolvable patterns (amount/date always reliable by construction). This is a controlled demo, not a production accuracy claim — real-world data would include multi-invoice splits and cross-currency cases not simulated here. `fuzzy_match.py` also uses greedy first-match assignment, so in rare cases two leftover rows competing for the same best invoice could have the second lose out even if it was the better fit — not triggered on the current 500-row dataset, but a known simplification worth flagging. See `failure_log.md` for documented bugs and fixes during development.
 
 ## Stack
 Python 3.14, pandas, rapidfuzz — no paid APIs required for core pipeline.
@@ -88,6 +88,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 python3 src/run_all.py
 ```
+
+## Tests
+Plain assert-based unit tests for the PS2/PS3 pure-function logic (no framework dependency):
+```bash
+python3 tests/test_fee_audit.py
+python3 tests/test_refund_allocator.py
+```
+Covers the normal case, zero/tiny-amount edge cases, and the exact tolerance boundary for the fee audit.
 
 ## Files
 - `src/generate_data.py` — synthetic dataset generator (injected messiness, fee glitches, refunds, ground truth)
