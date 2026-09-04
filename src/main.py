@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 def load_all():
     exact = pd.read_csv("data/exact_matches.csv")
@@ -64,5 +65,12 @@ def build_final_report(exact, fuzzy, exceptions, ground_truth):
     print("Saved: data/final_matched_report.csv, data/final_exceptions_report.csv")
 
 if __name__ == "__main__":
+    start_time = time.time()
+
     exact, fuzzy, exceptions, ground_truth = load_all()
     build_final_report(exact, fuzzy, exceptions, ground_truth)
+
+    elapsed = time.time() - start_time
+    total_records = len(ground_truth)
+    throughput = total_records / elapsed if elapsed > 0 else 0
+    print(f"Processing time: {elapsed:.3f}s | Throughput: {throughput:.1f} records/sec")
