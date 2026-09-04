@@ -33,11 +33,19 @@
   .badge.fuzzy { background: var(--fuzzy); }
   .table-wrap { overflow-x: auto; }
   h2 { font-size: 16px; margin-top: 32px; }
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    table { font-size: 11px; }
+    th, td { padding: 6px; }
+  }
+  .stat-card { transition: transform 0.15s; }
+  .stat-card:hover { transform: translateY(-2px); }
 </style>
 </head>
 <body>
   <h1>Multi-Source Settlement Reconciliation Report</h1>
-  <div class="subtitle">Generated 04 Sep 2026, 09:36 PM · 500 transactions processed</div>
+  <div class="subtitle">Generated 04 Sep 2026, 09:48 PM · 500 transactions processed</div>
 
   <div class="stats">
     <div class="stat-card"><div class="stat-value">89.6%</div><div class="stat-label">Auto-Matched</div></div>

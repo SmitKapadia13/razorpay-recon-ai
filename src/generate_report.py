@@ -67,6 +67,14 @@ def generate_html_report():
   .badge.fuzzy {{ background: var(--fuzzy); }}
   .table-wrap {{ overflow-x: auto; }}
   h2 {{ font-size: 16px; margin-top: 32px; }}
+  @media (max-width: 600px) {{
+    body {{ padding: 12px; }}
+    .stats {{ grid-template-columns: repeat(2, 1fr); }}
+    table {{ font-size: 11px; }}
+    th, td {{ padding: 6px; }}
+  }}
+  .stat-card {{ transition: transform 0.15s; }}
+  .stat-card:hover {{ transform: translateY(-2px); }}
 </style>
 </head>
 <body>

@@ -12,6 +12,24 @@ Reconciles three messy data sources — bank statement, Razorpay settlement repo
 2. **Fuzzy match** — for rows missing a clean reference, gates candidates on amount + date tolerance (reliable numeric signals), then uses name similarity (`rapidfuzz`) only as a confidence score — not as the primary filter
 3. **Honest exceptions** — anything genuinely unmatched is flagged for human review, never hidden or cherry-picked
 
+## Pipeline Flow
+
+```mermaid
+graph TD
+    A[Bank Statement CSV] --> D[Exact Match: UTR]
+    B[Razorpay Settlement API] --> D
+    C[ERP Invoices CSV] --> D
+    D -->|Matched| G[Exact Matches]
+    D -->|No ERP ref found| E[Fuzzy Match: Amount+Date gated]
+    C --> E
+    E -->|Match found| F[Fuzzy Matches - confidence scored]
+    E -->|No match| H[Honest Exceptions - human review]
+    G --> I[Final Report + Precision/Recall]
+    F --> I
+    H --> I
+    I --> J[HTML Visual Report]
+```
+
 ## Results (on 500-transaction synthetic dataset)
 - **89.6% auto-matched** (387 exact + 61 fuzzy)
 - **10.4% honest exceptions** (52 transactions — correctly routed to human review)
