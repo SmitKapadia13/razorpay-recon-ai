@@ -9,7 +9,7 @@ def load_leftover_and_erp():
     erp_candidates = erp[erp["payment_ref"].isna() | (erp["payment_ref"] == "")]
     return leftover, erp_candidates
 
-def fuzzy_match(leftover, erp_candidates, amount_tolerance=1.0, date_tolerance_days=3):
+def fuzzy_match(leftover, erp_candidates, amount_tolerance=1.0, date_tolerance_days=3, name_score_floor=40):
     matched_rows = []
     exception_rows = []
     used_invoices = set()
@@ -37,7 +37,7 @@ def fuzzy_match(leftover, erp_candidates, amount_tolerance=1.0, date_tolerance_d
                     best_amount_diff = amount_diff
                     best_date_diff = date_diff
 
-        if best_invoice is not None:
+        if best_invoice is not None and best_name_score >= name_score_floor:
             confidence = round(max(0.5, best_name_score / 100), 2)
             matched_rows.append({
                 "utr_number": row["utr_number"],
@@ -48,6 +48,19 @@ def fuzzy_match(leftover, erp_candidates, amount_tolerance=1.0, date_tolerance_d
                 "reason": f"Amount matched (diff ₹{best_amount_diff:.2f}), date diff {best_date_diff}d, name similarity {best_name_score:.0f}%"
             })
             used_invoices.add(best_invoice["invoice_no"])
+        elif best_invoice is not None:
+            # amount+date coincidentally matched, but name similarity too low to trust —
+            # treat as exception rather than risk a false positive (e.g. two unrelated
+            # orphan rows landing on the same amount+date by chance)
+            exception_rows.append({
+                "utr_number": row["utr_number"],
+                "settlement_id": row["settlement_id"],
+                "customer_name": row["customer_name"],
+                "order_amount": row["order_amount"],
+                "settlement_date": row["settlement_date"],
+                "reason": f"Amount+date candidate found (₹{best_amount_diff:.2f} diff, {best_date_diff}d) "
+                          f"but name similarity only {best_name_score:.0f}% — below {name_score_floor}% floor, flagged not matched."
+            })
         else:
             exception_rows.append({
                 "utr_number": row["utr_number"],

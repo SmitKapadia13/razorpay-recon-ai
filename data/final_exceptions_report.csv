@@ -9,6 +9,7 @@ UTR8800060,stl_060,Reliance Retail Ltd,2080.16,2026-08-19,No ERP invoice found m
 UTR8800062,stl_062,BigBasket Innovative Retail,2055.59,2026-08-15,No ERP invoice found matching amount+date within tolerance.
 UTR8800065,stl_065,Myntra Designs Pvt Ltd,3304.2,2026-08-05,No ERP invoice found matching amount+date within tolerance.
 UTR8800076,stl_076,Nykaa E-Retail Pvt Ltd,3504.1,2026-08-21,No ERP invoice found matching amount+date within tolerance.
+UTR8800082,stl_082,Nykaa E-Retail Pvt Ltd,2370.98,2026-08-15,"Amount+date candidate found (₹0.33 diff, 1d) but name similarity only 23% — below 40% floor, flagged not matched."
 UTR8800093,stl_093,Myntra Designs Pvt Ltd,1255.05,2026-08-05,No ERP invoice found matching amount+date within tolerance.
 UTR8800094,stl_094,Flipkart Internet Pvt Ltd,3104.08,2026-08-20,No ERP invoice found matching amount+date within tolerance.
 UTR8800114,stl_114,Nykaa E-Retail Pvt Ltd,2654.21,2026-08-03,No ERP invoice found matching amount+date within tolerance.
@@ -38,7 +39,6 @@ UTR8800295,stl_295,Nykaa E-Retail Pvt Ltd,2744.42,2026-08-02,No ERP invoice foun
 UTR8800304,stl_304,Swiggy Bundl Technologies,1975.85,2026-08-07,No ERP invoice found matching amount+date within tolerance.
 UTR8800309,stl_309,BigBasket Innovative Retail,1164.99,2026-08-03,No ERP invoice found matching amount+date within tolerance.
 UTR8800325,stl_325,Amazon Pvt Ltd,4609.53,2026-08-07,No ERP invoice found matching amount+date within tolerance.
-UTR8800337,stl_337,Myntra Designs Pvt Ltd,2371.31,2026-08-17,No ERP invoice found matching amount+date within tolerance.
 UTR8800339,stl_339,Myntra Designs Pvt Ltd,851.46,2026-08-03,No ERP invoice found matching amount+date within tolerance.
 UTR8800348,stl_348,Swiggy Bundl Technologies,3775.36,2026-08-02,No ERP invoice found matching amount+date within tolerance.
 UTR8800358,stl_358,Nykaa E-Retail Pvt Ltd,1584.36,2026-08-06,No ERP invoice found matching amount+date within tolerance.
