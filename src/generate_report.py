@@ -114,7 +114,18 @@ def generate_html_report():
   .badge.fuzzy {{ background: var(--fuzzy); }}
   .table-wrap {{ overflow-x: auto; }}
   h2 {{ font-size: 16px; margin-top: 32px; scroll-margin-top: 20px; }}
+  .tabs {{ display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }}
+  .tab-btn {{
+    background: none; border: none; cursor: pointer; font: inherit;
+    color: #888; padding: 10px 4px; margin-bottom: -1px;
+    border-bottom: 2px solid transparent; font-size: 13px; font-weight: 600;
+  }}
+  .tab-btn:hover {{ color: var(--text); }}
+  .tab-btn.active {{ color: var(--accent); border-bottom-color: var(--accent); }}
+  .tab-panel {{ display: none; }}
+  .tab-panel.active {{ display: block; }}
   @media (max-width: 600px) {{
+    .tabs {{ overflow-x: auto; white-space: nowrap; }}
     body {{ padding: 12px; }}
     .stats {{ grid-template-columns: repeat(2, 1fr); }}
     table {{ font-size: 11px; }}
@@ -127,6 +138,13 @@ def generate_html_report():
   <h1 id="top">Multi-Source Settlement Reconciliation Report</h1>
   <div class="subtitle">Generated {datetime.now().strftime('%d %b %Y, %I:%M %p')} · {total} transactions processed</div>
 
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab-1" onclick="showTab('tab-1', this)">1. Reconciliation</button>
+    <button class="tab-btn" data-tab="tab-2" onclick="showTab('tab-2', this)">2. Fee/GST Audit</button>
+    <button class="tab-btn" data-tab="tab-3" onclick="showTab('tab-3', this)">3. Refund Allocator</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-1">
   <div class="stats">
     <a href="#matched-table" class="stat-card"><div class="stat-value">{match_pct:.1f}%</div><div class="stat-label">Auto-Matched</div></a>
     <a href="#matched-table" class="stat-card"><div class="stat-value">{exact_count}</div><div class="stat-label">Exact Matches</div></a>
@@ -161,8 +179,10 @@ def generate_html_report():
     {exception_rows_html}
   </table>
   </div>
+  </div>
 
-  <h1 id="fee-audit" style="margin-top:48px;">Fee / GST Split Audit</h1>
+  <div class="tab-panel" id="tab-2">
+  <h1 id="fee-audit">Fee / GST Split Audit</h1>
   <div class="subtitle">Recomputed against 2.5% fee + 18% GST rate card · ₹0.50 tolerance</div>
 
   <div class="stats">
@@ -179,8 +199,10 @@ def generate_html_report():
     {fee_rows_html}
   </table>
   </div>
+  </div>
 
-  <h1 id="refund-allocator" style="margin-top:48px;">Partial Refund Allocator</h1>
+  <div class="tab-panel" id="tab-3">
+  <h1 id="refund-allocator">Partial Refund Allocator</h1>
   <div class="subtitle">Fee/GST/net split proportionally per refund, tied to original settlement</div>
 
   <div class="stats">
@@ -201,6 +223,18 @@ def generate_html_report():
   <div style="text-align:center; margin-top:32px;">
     <a href="#top" style="font-size:12px; color:#888; text-decoration:none;">↑ Back to top</a>
   </div>
+  </div>
+
+  <script>
+    function showTab(tabId, btn) {{
+      document.querySelectorAll('.tab-panel').forEach(function(panel) {{
+        panel.classList.toggle('active', panel.id === tabId);
+      }});
+      document.querySelectorAll('.tab-btn').forEach(function(b) {{
+        b.classList.toggle('active', b === btn);
+      }});
+    }}
+  </script>
 </body>
 </html>"""
 
