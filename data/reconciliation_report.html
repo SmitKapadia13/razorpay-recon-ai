@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Reconciliation Report</title>
+<style>
+  :root {
+    --bg: #ffffff; --text: #1a1a1a; --card: #f5f5f7; --border: #e0e0e0;
+    --exact: #22c55e; --fuzzy: #f59e0b; --exception: #ef4444; --accent: #6366f1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #0f0f0f; --text: #e5e5e5; --card: #1a1a1a; --border: #2a2a2a; }
+  }
+  :root[data-theme="dark"] { --bg: #0f0f0f; --text: #e5e5e5; --card: #1a1a1a; --border: #2a2a2a; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .subtitle { color: #888; margin-bottom: 24px; font-size: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .stat-value { font-size: 26px; font-weight: 700; }
+  .stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+  .bar-container { background: var(--card); border-radius: 8px; overflow: hidden; height: 32px; display: flex; margin-bottom: 24px; border: 1px solid var(--border); }
+  .bar { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: white; font-weight: 600; }
+  .bar.exact { background: var(--exact); width: 77.4%; }
+  .bar.fuzzy { background: var(--fuzzy); width: 12.2%; }
+  .bar.exception { background: var(--exception); width: 10.4%; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { color: #888; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .badge { padding: 2px 8px; border-radius: 12px; font-size: 11px; color: white; }
+  .badge.exact { background: var(--exact); }
+  .badge.fuzzy { background: var(--fuzzy); }
+  .table-wrap { overflow-x: auto; }
+  h2 { font-size: 16px; margin-top: 32px; }
+</style>
+</head>
+<body>
+  <h1>Multi-Source Settlement Reconciliation Report</h1>
+  <div class="subtitle">Generated 04 Sep 2026, 09:36 PM · 500 transactions processed</div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-value">89.6%</div><div class="stat-label">Auto-Matched</div></div>
+    <div class="stat-card"><div class="stat-value">387</div><div class="stat-label">Exact Matches</div></div>
+    <div class="stat-card"><div class="stat-value">61</div><div class="stat-label">Fuzzy Matches</div></div>
+    <div class="stat-card"><div class="stat-value">52</div><div class="stat-label">Honest Exceptions</div></div>
+    <div class="stat-card"><div class="stat-value">₹1,266,609</div><div class="stat-label">Amount Reconciled</div></div>
+  </div>
+
+  <div class="bar-container">
+    <div class="bar exact">77%</div>
+    <div class="bar fuzzy">12%</div>
+    <div class="bar exception">10%</div>
+  </div>
+
+  <h2>Sample Matched Transactions (first 20)</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>UTR</th><th>Invoice</th><th>Type</th><th>Confidence</th><th>Reason</th></tr>
+    <tr><td>UTR8800001</td><td>INV-4501</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800002</td><td>INV-4502</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800003</td><td>INV-4503</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800004</td><td>INV-4504</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800007</td><td>INV-4507</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800008</td><td>INV-4508</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800009</td><td>INV-4509</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800010</td><td>INV-4510</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800011</td><td>INV-4511</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800012</td><td>INV-4512</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800013</td><td>INV-4513</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800014</td><td>INV-4514</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800015</td><td>INV-4515</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800018</td><td>INV-4518</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800019</td><td>INV-4519</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800020</td><td>INV-4520</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800022</td><td>INV-4522</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800023</td><td>INV-4523</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800025</td><td>INV-4525</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr><tr><td>UTR8800027</td><td>INV-4527</td><td><span class='badge exact'>exact</span></td><td>1.0</td><td>UTR matched across bank, Razorpay settlement, and ERP invoice.</td></tr>
+  </table>
+  </div>
+
+  <h2>Exceptions — Flagged for Human Review</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>UTR</th><th>Customer</th><th>Amount</th><th>Reason</th></tr>
+    <tr><td>UTR8800006</td><td>BigBasket Innovative Retail</td><td>₹2031.13</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800026</td><td>Reliance Retail Ltd</td><td>₹4873.50</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800028</td><td>Myntra Designs Pvt Ltd</td><td>₹3931.30</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800030</td><td>Reliance Retail Ltd</td><td>₹1577.54</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800048</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1196.59</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800058</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹4251.85</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800059</td><td>Amazon Pvt Ltd</td><td>₹3505.38</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800066</td><td>BigBasket Innovative Retail</td><td>₹3024.08</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800070</td><td>Flipkart Internet Pvt Ltd</td><td>₹2091.55</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800071</td><td>Swiggy Bundl Technologies</td><td>₹4665.94</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800078</td><td>BigBasket Innovative Retail</td><td>₹3557.83</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800083</td><td>Zomato Ltd</td><td>₹2139.00</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800084</td><td>Myntra Designs Pvt Ltd</td><td>₹3485.24</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800092</td><td>Zomato Ltd</td><td>₹1163.09</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800105</td><td>Zomato Ltd</td><td>₹4248.01</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800117</td><td>Zomato Ltd</td><td>₹1067.99</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800120</td><td>Amazon Pvt Ltd</td><td>₹4679.99</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800136</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹2990.63</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800148</td><td>Zomato Ltd</td><td>₹3990.62</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800162</td><td>Swiggy Bundl Technologies</td><td>₹2617.25</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800170</td><td>Amazon Pvt Ltd</td><td>₹1416.01</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800173</td><td>BigBasket Innovative Retail</td><td>₹919.44</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800182</td><td>BigBasket Innovative Retail</td><td>₹696.41</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800188</td><td>Myntra Designs Pvt Ltd</td><td>₹4335.54</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800190</td><td>Reliance Retail Ltd</td><td>₹4988.42</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800194</td><td>BigBasket Innovative Retail</td><td>₹3288.70</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800200</td><td>Myntra Designs Pvt Ltd</td><td>₹3086.65</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800214</td><td>Zomato Ltd</td><td>₹3414.44</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800217</td><td>Swiggy Bundl Technologies</td><td>₹2248.91</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800232</td><td>Reliance Retail Ltd</td><td>₹2561.19</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800240</td><td>Reliance Retail Ltd</td><td>₹2184.35</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800247</td><td>Reliance Retail Ltd</td><td>₹3083.45</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800293</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1553.01</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800301</td><td>BigBasket Innovative Retail</td><td>₹2759.03</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800311</td><td>Flipkart Internet Pvt Ltd</td><td>₹2855.68</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800318</td><td>Myntra Designs Pvt Ltd</td><td>₹4700.17</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800359</td><td>Zomato Ltd</td><td>₹1133.95</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800360</td><td>BigBasket Innovative Retail</td><td>₹1617.22</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800361</td><td>Myntra Designs Pvt Ltd</td><td>₹1354.25</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800387</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1926.68</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800391</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1462.94</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800424</td><td>BigBasket Innovative Retail</td><td>₹1309.92</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800437</td><td>Reliance Retail Ltd</td><td>₹774.31</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800438</td><td>BigBasket Innovative Retail</td><td>₹3001.33</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800441</td><td>Zomato Ltd</td><td>₹1853.31</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800447</td><td>Zomato Ltd</td><td>₹2657.27</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800459</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1328.21</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800473</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹1719.93</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800474</td><td>Amazon Pvt Ltd</td><td>₹1307.10</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800480</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹2707.72</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800484</td><td>Myntra Designs Pvt Ltd</td><td>₹2123.15</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr><tr><td>UTR8800494</td><td>Nykaa E-Retail Pvt Ltd</td><td>₹981.38</td><td>No ERP invoice found matching amount+date within tolerance.</td></tr>
+  </table>
+  </div>
+</body>
+</html>

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 random.seed(42)  # reproducible results
 
 # ---- CONFIG ----
-NUM_TRANSACTIONS = 60
+NUM_TRANSACTIONS = 500
 
 customers = [
     ("Amazon Pvt Ltd", "AMZN-PAY", "Amazon India"),
