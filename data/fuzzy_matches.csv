@@ -1,0 +1,9 @@
+utr_number,settlement_id,invoice_no,match_type,confidence,reason
+UTR8800005,stl_005,INV-4505,fuzzy,0.73,"Amount matched (diff ₹0.00), date diff 1d, name similarity 73%"
+UTR8800016,stl_016,INV-4516,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 1d, name similarity 46%"
+UTR8800017,stl_017,INV-4517,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 3d, name similarity 43%"
+UTR8800021,stl_021,INV-4521,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 1d, name similarity 43%"
+UTR8800024,stl_024,INV-4524,fuzzy,0.62,"Amount matched (diff ₹0.00), date diff 3d, name similarity 62%"
+UTR8800029,stl_029,INV-4529,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 2d, name similarity 46%"
+UTR8800031,stl_031,INV-4531,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 3d, name similarity 48%"
+UTR8800050,stl_050,INV-4550,fuzzy,0.5,"Amount matched (diff ₹0.00), date diff 1d, name similarity 43%"

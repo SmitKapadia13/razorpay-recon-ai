@@ -1,0 +1,16 @@
+utr_number,settlement_id,customer_name,order_amount,settlement_date
+UTR8800005,stl_005,Zomato Ltd,2521.44,2026-08-10
+UTR8800006,stl_006,BigBasket Innovative Retail,2031.13,2026-08-06
+UTR8800016,stl_016,Myntra Designs Pvt Ltd,4292.83,2026-08-03
+UTR8800017,stl_017,BigBasket Innovative Retail,1704.83,2026-08-08
+UTR8800021,stl_021,Swiggy Bundl Technologies,2792.87,2026-08-04
+UTR8800024,stl_024,Amazon Pvt Ltd,3561.28,2026-08-05
+UTR8800026,stl_026,Reliance Retail Ltd,4873.5,2026-08-07
+UTR8800028,stl_028,Myntra Designs Pvt Ltd,3931.3,2026-08-19
+UTR8800029,stl_029,Myntra Designs Pvt Ltd,2698.73,2026-08-05
+UTR8800030,stl_030,Reliance Retail Ltd,1577.54,2026-08-09
+UTR8800031,stl_031,Flipkart Internet Pvt Ltd,3793.58,2026-08-04
+UTR8800048,stl_048,Nykaa E-Retail Pvt Ltd,1196.59,2026-08-11
+UTR8800050,stl_050,Swiggy Bundl Technologies,755.96,2026-08-18
+UTR8800058,stl_058,Nykaa E-Retail Pvt Ltd,4251.85,2026-08-11
+UTR8800059,stl_059,Amazon Pvt Ltd,3505.38,2026-08-19
