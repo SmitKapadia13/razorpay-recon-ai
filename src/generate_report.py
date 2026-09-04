@@ -4,6 +4,10 @@ from datetime import datetime
 def generate_html_report():
     matched = pd.read_csv("data/final_matched_report.csv")
     exceptions = pd.read_csv("data/final_exceptions_report.csv")
+    fee_flagged = pd.read_csv("data/fee_audit_flagged.csv")
+    rzp = pd.read_csv("data/razorpay_settlement.csv")
+    refund_journal = pd.read_csv("data/refund_journal.csv")
+    refund_exceptions = pd.read_csv("data/refund_exceptions.csv")
 
     total = len(matched) + len(exceptions)
     exact_count = len(matched[matched["match_type"] == "exact"])
@@ -22,14 +26,38 @@ def generate_html_report():
 
     total_amount_exception = exceptions["order_amount"].sum() if "order_amount" in exceptions.columns else 0
 
+    exact_sample = matched[matched["match_type"] == "exact"].head(10)
+    fuzzy_sample = matched[matched["match_type"] == "fuzzy"].head(10)
+    sample_combined = pd.concat([exact_sample, fuzzy_sample])
+
     matched_rows_html = "".join([
         f"<tr><td>{r['utr_number']}</td><td>{r['invoice_no']}</td><td><span class='badge {r['match_type']}'>{r['match_type']}</span></td><td>{r['confidence']}</td><td>{r['reason']}</td></tr>"
-        for _, r in matched.head(20).iterrows()
+        for _, r in sample_combined.iterrows()
     ])
 
     exception_rows_html = "".join([
         f"<tr><td>{r['utr_number']}</td><td>{r['customer_name']}</td><td>₹{r['order_amount']:.2f}</td><td>{r['reason']}</td></tr>"
         for _, r in exceptions.iterrows()
+    ])
+
+    # ---- PS2: Fee/GST audit stats ----
+    fee_total_leakage = fee_flagged["leakage"].sum() if len(fee_flagged) else 0.0
+    fee_flagged_count = len(fee_flagged)
+    fee_clean_count = len(rzp) - fee_flagged_count
+    fee_flagged_pct = (fee_flagged_count / len(rzp) * 100) if len(rzp) else 0
+
+    fee_rows_html = "".join([
+        f"<tr><td>{r['settlement_id']}</td><td>{r['customer_name']}</td><td>₹{r['expected_fee']:.2f}</td><td>₹{r['actual_fee']:.2f}</td><td>₹{r['leakage']:.2f}</td><td>{r['reason']}</td></tr>"
+        for _, r in fee_flagged.iterrows()
+    ])
+
+    # ---- PS3: Refund allocation stats ----
+    refund_total = len(refund_journal) + len(refund_exceptions)
+    refund_net_reversed = refund_journal["allocated_net_reversal"].sum() if len(refund_journal) else 0.0
+
+    refund_rows_html = "".join([
+        f"<tr><td>{r['refund_id']}</td><td>{r['settlement_id']}</td><td>{r['refund_type']}</td><td>₹{r['refund_amount']:.2f}</td><td>{r['refund_ratio']:.1%}</td><td>₹{r['allocated_fee_reversal']:.2f}</td><td>₹{r['allocated_gst_reversal']:.2f}</td><td>₹{r['allocated_net_reversal']:.2f}</td></tr>"
+        for _, r in refund_journal.iterrows()
     ])
 
     html = f"""<!DOCTYPE html>
@@ -118,7 +146,7 @@ def generate_html_report():
     <span><i class="dot exception"></i>Needs Review</span>
   </div>
 
-  <h2 id="matched-table">Sample Matched Transactions (first 20)</h2>
+  <h2 id="matched-table">Sample Matched Transactions (10 exact + 10 fuzzy)</h2>
   <div class="table-wrap">
   <table>
     <tr><th>UTR</th><th>Invoice</th><th>Type</th><th>Confidence</th><th>Reason</th></tr>
@@ -133,10 +161,47 @@ def generate_html_report():
     {exception_rows_html}
   </table>
   </div>
-</body>
+
+  <h1 id="fee-audit" style="margin-top:48px;">Fee / GST Split Audit</h1>
+  <div class="subtitle">Recomputed against 2.5% fee + 18% GST rate card · ₹0.50 tolerance</div>
+
+  <div class="stats">
+    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_clean_count}</div><div class="stat-label">Clean Settlements</div></a>
+    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_flagged_count}</div><div class="stat-label">Flagged Discrepancies</div></a>
+    <a href="#fee-audit-table" class="stat-card"><div class="stat-value">{fee_flagged_pct:.1f}%</div><div class="stat-label">Flag Rate</div></a>
+    <div class="stat-card"><div class="stat-value">₹{fee_total_leakage:,.2f}</div><div class="stat-label">Total Leakage Found</div></div>
+  </div>
+
+  <h2 id="fee-audit-table">Flagged Fee/GST Discrepancies</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Settlement</th><th>Customer</th><th>Expected Fee</th><th>Actual Fee</th><th>Leakage</th><th>Reason</th></tr>
+    {fee_rows_html}
+  </table>
+  </div>
+
+  <h1 id="refund-allocator" style="margin-top:48px;">Partial Refund Allocator</h1>
+  <div class="subtitle">Fee/GST/net split proportionally per refund, tied to original settlement</div>
+
+  <div class="stats">
+    <a href="#refund-table" class="stat-card"><div class="stat-value">{refund_total}</div><div class="stat-label">Refund Events</div></a>
+    <a href="#refund-table" class="stat-card"><div class="stat-value">{len(refund_journal)}</div><div class="stat-label">Journal Entries</div></a>
+    <a href="#refund-table" class="stat-card"><div class="stat-value">{len(refund_exceptions)}</div><div class="stat-label">Unresolved</div></a>
+    <div class="stat-card"><div class="stat-value">₹{refund_net_reversed:,.2f}</div><div class="stat-label">Net Amount Reversed</div></div>
+  </div>
+
+  <h2 id="refund-table">Refund Journal Entries</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Refund</th><th>Settlement</th><th>Type</th><th>Amount</th><th>Ratio</th><th>Fee Reversal</th><th>GST Reversal</th><th>Net Reversal</th></tr>
+    {refund_rows_html}
+  </table>
+  </div>
+
   <div style="text-align:center; margin-top:32px;">
     <a href="#top" style="font-size:12px; color:#888; text-decoration:none;">↑ Back to top</a>
   </div>
+</body>
 </html>"""
 
     with open("data/reconciliation_report.html", "w") as f:

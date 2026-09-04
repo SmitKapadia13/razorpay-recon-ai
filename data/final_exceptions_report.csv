@@ -1,53 +1,62 @@
 utr_number,settlement_id,customer_name,order_amount,settlement_date,reason
-UTR8800006,stl_006,BigBasket Innovative Retail,2031.13,2026-08-06,No ERP invoice found matching amount+date within tolerance.
-UTR8800026,stl_026,Reliance Retail Ltd,4873.5,2026-08-07,No ERP invoice found matching amount+date within tolerance.
-UTR8800028,stl_028,Myntra Designs Pvt Ltd,3931.3,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800030,stl_030,Reliance Retail Ltd,1577.54,2026-08-09,No ERP invoice found matching amount+date within tolerance.
-UTR8800048,stl_048,Nykaa E-Retail Pvt Ltd,1196.59,2026-08-11,No ERP invoice found matching amount+date within tolerance.
-UTR8800058,stl_058,Nykaa E-Retail Pvt Ltd,4251.85,2026-08-11,No ERP invoice found matching amount+date within tolerance.
-UTR8800059,stl_059,Amazon Pvt Ltd,3505.38,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800066,stl_066,BigBasket Innovative Retail,3024.08,2026-08-05,No ERP invoice found matching amount+date within tolerance.
-UTR8800070,stl_070,Flipkart Internet Pvt Ltd,2091.55,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800071,stl_071,Swiggy Bundl Technologies,4665.94,2026-08-09,No ERP invoice found matching amount+date within tolerance.
-UTR8800078,stl_078,BigBasket Innovative Retail,3557.83,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800083,stl_083,Zomato Ltd,2139.0,2026-08-04,No ERP invoice found matching amount+date within tolerance.
-UTR8800084,stl_084,Myntra Designs Pvt Ltd,3485.24,2026-08-05,No ERP invoice found matching amount+date within tolerance.
-UTR8800092,stl_092,Zomato Ltd,1163.09,2026-08-03,No ERP invoice found matching amount+date within tolerance.
-UTR8800105,stl_105,Zomato Ltd,4248.01,2026-08-14,No ERP invoice found matching amount+date within tolerance.
-UTR8800117,stl_117,Zomato Ltd,1067.99,2026-08-05,No ERP invoice found matching amount+date within tolerance.
-UTR8800120,stl_120,Amazon Pvt Ltd,4679.99,2026-08-20,No ERP invoice found matching amount+date within tolerance.
-UTR8800136,stl_136,Nykaa E-Retail Pvt Ltd,2990.63,2026-08-13,No ERP invoice found matching amount+date within tolerance.
-UTR8800148,stl_148,Zomato Ltd,3990.62,2026-08-14,No ERP invoice found matching amount+date within tolerance.
-UTR8800162,stl_162,Swiggy Bundl Technologies,2617.25,2026-08-22,No ERP invoice found matching amount+date within tolerance.
-UTR8800170,stl_170,Amazon Pvt Ltd,1416.01,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800173,stl_173,BigBasket Innovative Retail,919.44,2026-08-05,No ERP invoice found matching amount+date within tolerance.
-UTR8800182,stl_182,BigBasket Innovative Retail,696.41,2026-08-17,No ERP invoice found matching amount+date within tolerance.
-UTR8800188,stl_188,Myntra Designs Pvt Ltd,4335.54,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800190,stl_190,Reliance Retail Ltd,4988.42,2026-08-04,No ERP invoice found matching amount+date within tolerance.
-UTR8800194,stl_194,BigBasket Innovative Retail,3288.7,2026-08-09,No ERP invoice found matching amount+date within tolerance.
-UTR8800200,stl_200,Myntra Designs Pvt Ltd,3086.65,2026-08-11,No ERP invoice found matching amount+date within tolerance.
-UTR8800214,stl_214,Zomato Ltd,3414.44,2026-08-22,No ERP invoice found matching amount+date within tolerance.
-UTR8800217,stl_217,Swiggy Bundl Technologies,2248.91,2026-08-13,No ERP invoice found matching amount+date within tolerance.
-UTR8800232,stl_232,Reliance Retail Ltd,2561.19,2026-08-02,No ERP invoice found matching amount+date within tolerance.
-UTR8800240,stl_240,Reliance Retail Ltd,2184.35,2026-08-06,No ERP invoice found matching amount+date within tolerance.
-UTR8800247,stl_247,Reliance Retail Ltd,3083.45,2026-08-15,No ERP invoice found matching amount+date within tolerance.
-UTR8800293,stl_293,Nykaa E-Retail Pvt Ltd,1553.01,2026-08-09,No ERP invoice found matching amount+date within tolerance.
-UTR8800301,stl_301,BigBasket Innovative Retail,2759.03,2026-08-09,No ERP invoice found matching amount+date within tolerance.
-UTR8800311,stl_311,Flipkart Internet Pvt Ltd,2855.68,2026-08-13,No ERP invoice found matching amount+date within tolerance.
-UTR8800318,stl_318,Myntra Designs Pvt Ltd,4700.17,2026-08-18,No ERP invoice found matching amount+date within tolerance.
-UTR8800359,stl_359,Zomato Ltd,1133.95,2026-08-03,No ERP invoice found matching amount+date within tolerance.
-UTR8800360,stl_360,BigBasket Innovative Retail,1617.22,2026-08-07,No ERP invoice found matching amount+date within tolerance.
-UTR8800361,stl_361,Myntra Designs Pvt Ltd,1354.25,2026-08-07,No ERP invoice found matching amount+date within tolerance.
-UTR8800387,stl_387,Nykaa E-Retail Pvt Ltd,1926.68,2026-08-13,No ERP invoice found matching amount+date within tolerance.
-UTR8800391,stl_391,Nykaa E-Retail Pvt Ltd,1462.94,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800424,stl_424,BigBasket Innovative Retail,1309.92,2026-08-06,No ERP invoice found matching amount+date within tolerance.
-UTR8800437,stl_437,Reliance Retail Ltd,774.31,2026-08-20,No ERP invoice found matching amount+date within tolerance.
-UTR8800438,stl_438,BigBasket Innovative Retail,3001.33,2026-08-03,No ERP invoice found matching amount+date within tolerance.
-UTR8800441,stl_441,Zomato Ltd,1853.31,2026-08-06,No ERP invoice found matching amount+date within tolerance.
-UTR8800447,stl_447,Zomato Ltd,2657.27,2026-08-12,No ERP invoice found matching amount+date within tolerance.
-UTR8800459,stl_459,Nykaa E-Retail Pvt Ltd,1328.21,2026-08-19,No ERP invoice found matching amount+date within tolerance.
-UTR8800473,stl_473,Nykaa E-Retail Pvt Ltd,1719.93,2026-08-04,No ERP invoice found matching amount+date within tolerance.
-UTR8800474,stl_474,Amazon Pvt Ltd,1307.1,2026-08-12,No ERP invoice found matching amount+date within tolerance.
-UTR8800480,stl_480,Nykaa E-Retail Pvt Ltd,2707.72,2026-08-13,No ERP invoice found matching amount+date within tolerance.
-UTR8800484,stl_484,Myntra Designs Pvt Ltd,2123.15,2026-08-04,No ERP invoice found matching amount+date within tolerance.
-UTR8800494,stl_494,Nykaa E-Retail Pvt Ltd,981.38,2026-08-11,No ERP invoice found matching amount+date within tolerance.
+UTR8800008,stl_008,Zomato Ltd,3670.57,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800030,stl_030,Reliance Retail Ltd,3510.4,2026-08-06,No ERP invoice found matching amount+date within tolerance.
+UTR8800035,stl_035,Flipkart Internet Pvt Ltd,727.65,2026-08-02,No ERP invoice found matching amount+date within tolerance.
+UTR8800036,stl_036,Zomato Ltd,1248.4,2026-08-08,No ERP invoice found matching amount+date within tolerance.
+UTR8800045,stl_045,Flipkart Internet Pvt Ltd,829.67,2026-08-10,No ERP invoice found matching amount+date within tolerance.
+UTR8800055,stl_055,BigBasket Innovative Retail,4882.27,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800060,stl_060,Reliance Retail Ltd,2080.16,2026-08-19,No ERP invoice found matching amount+date within tolerance.
+UTR8800062,stl_062,BigBasket Innovative Retail,2055.59,2026-08-15,No ERP invoice found matching amount+date within tolerance.
+UTR8800065,stl_065,Myntra Designs Pvt Ltd,3304.2,2026-08-05,No ERP invoice found matching amount+date within tolerance.
+UTR8800076,stl_076,Nykaa E-Retail Pvt Ltd,3504.1,2026-08-21,No ERP invoice found matching amount+date within tolerance.
+UTR8800093,stl_093,Myntra Designs Pvt Ltd,1255.05,2026-08-05,No ERP invoice found matching amount+date within tolerance.
+UTR8800094,stl_094,Flipkart Internet Pvt Ltd,3104.08,2026-08-20,No ERP invoice found matching amount+date within tolerance.
+UTR8800114,stl_114,Nykaa E-Retail Pvt Ltd,2654.21,2026-08-03,No ERP invoice found matching amount+date within tolerance.
+UTR8800116,stl_116,Amazon Pvt Ltd,1182.77,2026-08-11,No ERP invoice found matching amount+date within tolerance.
+UTR8800123,stl_123,Zomato Ltd,2413.13,2026-08-22,No ERP invoice found matching amount+date within tolerance.
+UTR8800129,stl_129,Swiggy Bundl Technologies,2617.25,2026-08-10,No ERP invoice found matching amount+date within tolerance.
+UTR8800137,stl_137,Amazon Pvt Ltd,2985.13,2026-08-05,No ERP invoice found matching amount+date within tolerance.
+UTR8800140,stl_140,Swiggy Bundl Technologies,4388.12,2026-08-15,No ERP invoice found matching amount+date within tolerance.
+UTR8800154,stl_154,Flipkart Internet Pvt Ltd,3242.71,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800159,stl_159,Myntra Designs Pvt Ltd,3086.65,2026-08-11,No ERP invoice found matching amount+date within tolerance.
+UTR8800165,stl_165,Myntra Designs Pvt Ltd,2888.84,2026-08-07,No ERP invoice found matching amount+date within tolerance.
+UTR8800170,stl_170,Nykaa E-Retail Pvt Ltd,612.61,2026-08-19,No ERP invoice found matching amount+date within tolerance.
+UTR8800172,stl_172,BigBasket Innovative Retail,1025.04,2026-08-03,No ERP invoice found matching amount+date within tolerance.
+UTR8800176,stl_176,Zomato Ltd,2495.22,2026-08-13,No ERP invoice found matching amount+date within tolerance.
+UTR8800192,stl_192,Flipkart Internet Pvt Ltd,1906.47,2026-08-10,No ERP invoice found matching amount+date within tolerance.
+UTR8800226,stl_226,Nykaa E-Retail Pvt Ltd,2858.31,2026-08-13,No ERP invoice found matching amount+date within tolerance.
+UTR8800232,stl_232,BigBasket Innovative Retail,2788.2,2026-08-08,No ERP invoice found matching amount+date within tolerance.
+UTR8800243,stl_243,BigBasket Innovative Retail,912.71,2026-08-16,No ERP invoice found matching amount+date within tolerance.
+UTR8800244,stl_244,BigBasket Innovative Retail,739.66,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800251,stl_251,Myntra Designs Pvt Ltd,1582.54,2026-08-04,No ERP invoice found matching amount+date within tolerance.
+UTR8800261,stl_261,BigBasket Innovative Retail,2025.66,2026-08-17,No ERP invoice found matching amount+date within tolerance.
+UTR8800265,stl_265,Nykaa E-Retail Pvt Ltd,690.6,2026-08-13,No ERP invoice found matching amount+date within tolerance.
+UTR8800271,stl_271,Zomato Ltd,4822.34,2026-08-18,No ERP invoice found matching amount+date within tolerance.
+UTR8800272,stl_272,Flipkart Internet Pvt Ltd,1678.0,2026-08-16,No ERP invoice found matching amount+date within tolerance.
+UTR8800283,stl_283,Reliance Retail Ltd,1240.96,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800295,stl_295,Nykaa E-Retail Pvt Ltd,2744.42,2026-08-02,No ERP invoice found matching amount+date within tolerance.
+UTR8800304,stl_304,Swiggy Bundl Technologies,1975.85,2026-08-07,No ERP invoice found matching amount+date within tolerance.
+UTR8800309,stl_309,BigBasket Innovative Retail,1164.99,2026-08-03,No ERP invoice found matching amount+date within tolerance.
+UTR8800325,stl_325,Amazon Pvt Ltd,4609.53,2026-08-07,No ERP invoice found matching amount+date within tolerance.
+UTR8800337,stl_337,Myntra Designs Pvt Ltd,2371.31,2026-08-17,No ERP invoice found matching amount+date within tolerance.
+UTR8800339,stl_339,Myntra Designs Pvt Ltd,851.46,2026-08-03,No ERP invoice found matching amount+date within tolerance.
+UTR8800348,stl_348,Swiggy Bundl Technologies,3775.36,2026-08-02,No ERP invoice found matching amount+date within tolerance.
+UTR8800358,stl_358,Nykaa E-Retail Pvt Ltd,1584.36,2026-08-06,No ERP invoice found matching amount+date within tolerance.
+UTR8800363,stl_363,Myntra Designs Pvt Ltd,1864.35,2026-08-08,No ERP invoice found matching amount+date within tolerance.
+UTR8800383,stl_383,Nykaa E-Retail Pvt Ltd,4303.98,2026-08-12,No ERP invoice found matching amount+date within tolerance.
+UTR8800384,stl_384,Flipkart Internet Pvt Ltd,4526.56,2026-08-09,No ERP invoice found matching amount+date within tolerance.
+UTR8800390,stl_390,Flipkart Internet Pvt Ltd,2032.67,2026-08-21,No ERP invoice found matching amount+date within tolerance.
+UTR8800405,stl_405,BigBasket Innovative Retail,4859.26,2026-08-22,No ERP invoice found matching amount+date within tolerance.
+UTR8800407,stl_407,Zomato Ltd,3165.02,2026-08-19,No ERP invoice found matching amount+date within tolerance.
+UTR8800410,stl_410,Swiggy Bundl Technologies,3718.56,2026-08-04,No ERP invoice found matching amount+date within tolerance.
+UTR8800412,stl_412,Myntra Designs Pvt Ltd,3657.35,2026-08-21,No ERP invoice found matching amount+date within tolerance.
+UTR8800414,stl_414,Amazon Pvt Ltd,3034.49,2026-08-22,No ERP invoice found matching amount+date within tolerance.
+UTR8800417,stl_417,Myntra Designs Pvt Ltd,4989.66,2026-08-11,No ERP invoice found matching amount+date within tolerance.
+UTR8800444,stl_444,Flipkart Internet Pvt Ltd,1110.15,2026-08-15,No ERP invoice found matching amount+date within tolerance.
+UTR8800448,stl_448,BigBasket Innovative Retail,2820.26,2026-08-13,No ERP invoice found matching amount+date within tolerance.
+UTR8800449,stl_449,Myntra Designs Pvt Ltd,3118.8,2026-08-04,No ERP invoice found matching amount+date within tolerance.
+UTR8800450,stl_450,Myntra Designs Pvt Ltd,4325.48,2026-08-14,No ERP invoice found matching amount+date within tolerance.
+UTR8800460,stl_460,Reliance Retail Ltd,1117.08,2026-08-06,No ERP invoice found matching amount+date within tolerance.
+UTR8800468,stl_468,Zomato Ltd,2748.12,2026-08-18,No ERP invoice found matching amount+date within tolerance.
+UTR8800473,stl_473,Swiggy Bundl Technologies,1748.6,2026-08-18,No ERP invoice found matching amount+date within tolerance.
+UTR8800495,stl_495,BigBasket Innovative Retail,836.74,2026-08-15,No ERP invoice found matching amount+date within tolerance.

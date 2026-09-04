@@ -20,8 +20,11 @@ if __name__ == "__main__":
     run_step("src/exact_match.py", "Running exact match (UTR-based)")
     run_step("src/fuzzy_match.py", "Running fuzzy match (amount+date gated)")
     run_step("src/main.py", "Building final report + scoring")
+    run_step("src/fee_audit.py", "Auditing fee/GST split vs rate card")
+    run_step("src/refund_allocator.py", "Allocating partial refunds to journal entries")
     run_step("src/generate_report.py", "Generating HTML report")
 
     print(f"\n{'='*60}")
-    print("PIPELINE COMPLETE — check data/final_matched_report.csv and data/final_exceptions_report.csv")
+    print("PIPELINE COMPLETE — check data/final_matched_report.csv, data/final_exceptions_report.csv,")
+    print("data/fee_audit_flagged.csv, data/refund_journal.csv")
     print('='*60)
