@@ -37,10 +37,10 @@ Solution: For each refund event, compute refund_ratio = refund_amount / original
 Status: Built (`src/refund_allocator.py`). 18 refund events, 100% allocated, ₹36,781.25 net reversed. Outputs `data/refund_journal.csv` + `data/refund_exceptions.csv`.
 
 ## Tech Stack
-- Python 3.14, pandas, rapidfuzz (fuzzy string matching), python-dotenv
-- No paid APIs required for core pipeline (rule-based first, LLM reserved for edge cases only — was a deliberate AI-judgment decision, not yet implemented as optional bonus)
+- Python 3.14, pandas, rapidfuzz (fuzzy string matching)
+- No paid APIs required for core pipeline (rule-based first, LLM reserved for edge cases only — was a deliberate AI-judgment decision, not implemented; not a current dependency)
 - Virtual env: `venv/` (activate with `source venv/bin/activate`)
-- Gemini API key available in `.env` as `GEMINI_API_KEY` if LLM escalation layer gets added later
+- Gemini API key available in `.env` as `GEMINI_API_KEY` (gitignored) if an LLM escalation layer gets added later — currently unused, not in requirements.txt
 
 ## File Structure
 razorpay-recon-ai/
@@ -49,20 +49,22 @@ razorpay-recon-ai/
 │ ├── razorpay_settlement.csv # has fee/gst columns, ~4% have injected glitches for PS2
 │ ├── erp_invoices.csv
 │ ├── ground_truth.csv # our own answer key for real precision/recall
-│ ├── refunds.csv # NEW: refund events for PS3, mix full/partial
+│ ├── refunds.csv # refund events for PS3, mix full/partial
 │ ├── exact_matches.csv, fuzzy_matches.csv, leftover_for_fuzzy.csv, exceptions.csv
 │ ├── final_matched_report.csv, final_exceptions_report.csv
-│ └── reconciliation_report.html # visual dashboard, clickable stat cards
+│ ├── fee_audit_flagged.csv # PS2 output: rate-card discrepancies + leakage
+│ ├── refund_journal.csv, refund_exceptions.csv # PS3 output
+│ └── reconciliation_report.html # tabbed visual dashboard, all 3 loops
 ├── src/
 │ ├── generate_data.py # synthetic data generator, seed=42, NUM_TRANSACTIONS=500
 │ ├── exact_match.py # PS1 layer 1: UTR-based exact match
-│ ├── fuzzy_match.py # PS1 layer 2: amount+date gated fuzzy match (rapidfuzz)
+│ ├── fuzzy_match.py # PS1 layer 2: amount+date gated fuzzy match, 40% name-score floor
 │ ├── main.py # PS1: merges results, computes real precision/recall, throughput
-│ ├── generate_report.py # builds HTML dashboard from PS1 outputs
-│ ├── run_all.py # chains all pipeline steps in one command
-│ ├── fee_audit.py # PS2: NOT YET BUILT — needs creation
-│ └── refund_allocator.py # PS3: NOT YET BUILT — needs creation
-├── failure_log.md # 2 real bugs documented so far (fuzzy-match gating bug, f-string brace escaping bug)
+│ ├── fee_audit.py # PS2: recomputes expected fee/GST vs rate card, flags leakage
+│ ├── refund_allocator.py # PS3: proportional fee/gst/net split per refund, journal entries
+│ ├── generate_report.py # builds tabbed HTML dashboard across all 3 loops
+│ └── run_all.py # chains all pipeline steps in one command
+├── failure_log.md # 4 real bugs documented (see below)
 ├── README.md
 ├── requirements.txt
 └── .env # GEMINI_API_KEY (gitignored)
@@ -71,6 +73,8 @@ razorpay-recon-ai/
 ## Known Bugs Already Fixed (see failure_log.md for full writeups)
 1. Fuzzy matcher initially gated on name_score first (wrong — noisy signal), fixed to gate on amount+date first (reliable), use name only as confidence tiebreak.
 2. f-string brace escaping bug in HTML report generator — all literal `{` `}` in the f-string template must be doubled `{{` `}}` or Python throws SyntaxError.
+3. `pd.DataFrame([])` on an empty result list writes a header-less CSV, crashing the report generator's `read_csv` — fixed by pinning explicit `columns=[...]` on every DataFrame constructor in `fee_audit.py`/`refund_allocator.py`, so a clean run (zero flags) still writes a valid header-only CSV.
+4. Bug 1's fix removed the noisy name-score gate but added no floor at all — a coincidental amount+date match with 23% name similarity got silently auto-matched, dropping precision/recall from 100% to 99.77%. Fixed with `name_score_floor=40` in `fuzzy_match.py`: below-floor candidates route to exceptions instead of auto-matching.
 
 ## Design Principles To Maintain
 - Rule-based/deterministic matching ALWAYS preferred over LLM calls where possible — cheaper, faster, more explainable, directly satisfies rubric's "know when NOT to use AI" criterion

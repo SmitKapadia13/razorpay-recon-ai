@@ -20,11 +20,9 @@ def generate_html_report():
     exception_pct = (exception_count / total * 100) if total > 0 else 0
 
     total_amount_matched = matched.merge(
-        pd.read_csv("data/razorpay_settlement.csv")[["settlement_id", "order_amount"]],
+        rzp[["settlement_id", "order_amount"]],
         on="settlement_id", how="left"
     )["order_amount"].sum()
-
-    total_amount_exception = exceptions["order_amount"].sum() if "order_amount" in exceptions.columns else 0
 
     exact_sample = matched[matched["match_type"] == "exact"].head(10)
     fuzzy_sample = matched[matched["match_type"] == "fuzzy"].head(10)

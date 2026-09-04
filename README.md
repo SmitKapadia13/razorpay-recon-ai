@@ -61,6 +61,17 @@ graph TD
 
 All three loops run in well under a second combined — see terminal throughput output per stage.
 
+## Escalation Path (human-review routing)
+Nothing this pipeline can't confidently resolve is silently dropped or auto-approved — every loop routes uncertainty to a specific, named output a finance-ops reviewer picks up:
+
+| Loop | Escalation output | Who acts on it | Trigger |
+|---|---|---|---|
+| PS1 Reconciliation | `data/final_exceptions_report.csv` | Reconciliation analyst | No UTR/amount+date/name match found within tolerance — genuinely unresolved, or amount+date matched by coincidence with name similarity below the 40% trust floor (see `failure_log.md` Bug 4) |
+| PS2 Fee/GST Audit | `data/fee_audit_flagged.csv` | Finance-ops / merchant success | Deducted fee or GST differs from the rate-card expectation by more than ₹0.50 |
+| PS3 Refund Allocator | `data/refund_exceptions.csv` | Finance-ops | Refund event references a `settlement_id` with no matching original settlement — can't compute a ratio |
+
+Every row in these three files carries a `reason` string explaining exactly why it needs a human, not just that it does — that's the audit trail (rubric requirement), not a black-box flag. In a real deployment these CSVs would feed a ticketing queue (e.g. one row = one Jira/Freshdesk ticket) instead of a file; the routing logic itself doesn't change.
+
 ## Why this approach (not pure LLM)
 Research (Prakash et al., 2025) shows small domain-tuned models can outperform general LLMs on narrow matching tasks. We use `rapidfuzz` and deterministic rate-card math (offline, free) for all three loops, reserving LLM calls only for genuinely ambiguous edge cases — cheaper, faster, and more explainable than calling an LLM on every row. Every automated decision — match, fee flag, refund allocation — includes a human-readable `reason` string (audit trail).
 
